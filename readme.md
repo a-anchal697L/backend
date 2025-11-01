@@ -44,10 +44,9 @@ Create a `.env` file:
 
 ```env
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/task_app_db
+MONGO_URI=mongodb://localhost:27017/task_app
 JWT_SECRET=your_secret_key
 JWT_EXPIRE=7d
-NODE_ENV=development
 ```
 
 ### 3️⃣ Run MongoDB & Server
@@ -58,68 +57,110 @@ npm run dev
 
 ---
 
-## 🔐 Auth Routes
+## 🔐 Authentication Flow
 
-### `POST /api/auth/signup`
+1. **Sign Up** – Create a new user account.  
+2. **Login** – Get a JWT token after successful authentication.  
+3. **Access Protected Routes** – Use the token in the Authorization header:  
+
+```
+Authorization: Bearer <your_jwt_token_here>
+```
+
+---
+
+## 📬 API Endpoints
+
+### 🧑‍💻 Auth Routes
+
+| Method | Endpoint | Description |
+|--------|-----------|--------------|
+| POST | `/api/auth/signup` | Register a new user |
+| POST | `/api/auth/login` | Login user & get JWT token |
+
+**Signup Payload Example**
 ```json
 {
   "name": "John Doe",
   "email": "john@example.com",
-  "password": "StrongP@ssword1"
+  "password": "123456"
 }
 ```
 
-### `POST /api/auth/login`
+**Login Payload Example**
 ```json
 {
   "email": "john@example.com",
-  "password": "StrongP@ssword1"
+  "password": "123456"
 }
 ```
 
 ---
 
-## Task Routes (Require Auth Token)
+### ✅ Task Routes (Protected)
 
-### `GET /api/tasks`
-- Optional query: `?page=1&limit=5&sortBy=deadline&order=asc`
+> ⚠️ **Note:** Add your JWT token as a **Bearer token** in the header before testing these APIs.
 
-### `POST /api/tasks`
-```json
-{
-  "title": "Finish Backend API",
-  "description": "Implement CRUD and auth",
-  "status": "Pending",
-  "deadline": "2025-11-10T18:00:00.000Z"
-}
+| Method | Endpoint | Description |
+|--------|-----------|-------------|
+| GET | `/api/tasks` | Get all tasks (with pagination & sorting) |
+| POST | `/api/tasks` | Create a new task |
+| PUT | `/api/tasks/:id` | Update task by ID |
+| DELETE | `/api/tasks/:id` | Delete task by ID |
+
+**Authorization Header**
+```
+Authorization: Bearer <your_jwt_token_here>
 ```
 
-### `PUT /api/tasks/:id`
+**Create Task Payload Example**
 ```json
 {
-  "title": "Integrate JWT Auth",
-  "deadline": "2025-11-25T18:00:00.000Z"
+  "title": "Complete Project Report",
+  "description": "Finish documentation and upload",
+  "status": "pending",
+  "deadline": "2025-11-05"
 }
 ```
-
-### `DELETE /api/tasks/:id`
-Deletes the authenticated user’s own task.
 
 ---
 
-## 🧾 Example Payloads
-**Signup**
-```json
-{ "name": "Alice", "email": "alice@example.com", "password": "Alice@1234" }
+## 🧮 Pagination & Sorting (Frontend Usage)
+
+You can add query params to fetch sorted or paginated tasks.
+
+Example:
+```
+GET /api/tasks?page=1&limit=5&sortBy=createdAt&order=desc
 ```
 
-**Create Task**
+---
+
+## 🧾 Sample Task Payloads
+
+Here are some example tasks you can create using Postman:
+
 ```json
-{
-  "title": "Write Unit Tests",
-  "status": "Pending",
-  "deadline": "2025-11-10T12:00:00.000Z"
-}
+[
+  {
+    "title": "Setup Pagination",
+    "description": "Implement pagination for user tasks",
+    "status": "in-progress",
+    "deadline": "2025-11-04"
+  },
+  {
+    "title": "Add Error Handling",
+    "description": "Create centralized error handler middleware",
+    "status": "pending",
+    "deadline": "2025-11-05"
+  },
+  {
+    "title": "Frontend Integration",
+    "description": "Connect API with React frontend",
+    "status": "pending",
+    "deadline": "2025-11-06"
+  }
+]
 ```
 
 ---
@@ -131,13 +172,6 @@ Deletes the authenticated user’s own task.
   "build": "tsc",
   "start": "node dist/server.js"
 }
-```
-
----
-
-## 🧪 Quick Test (Postman or cURL)
-```bash
-curl -X POST http://localhost:5000/api/auth/signup   -H "Content-Type: application/json"   -d '{"name":"John","email":"john@example.com","password":"John@1234"}'
 ```
 
 ---
