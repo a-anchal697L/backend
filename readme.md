@@ -9,6 +9,7 @@ Easily manage user-specific tasks with full CRUD, validation, and authentication
 - **Database**: MongoDB (Mongoose ODM)  
 - **Auth**: JWT (JSON Web Tokens) + Cookies  
 - **Security**: bcryptjs (password hashing)  
+- **Containerization**: Docker + Docker Compose  
 - **Dev Tools**: dotenv, nodemon, ts-node  
 
 ---
@@ -42,9 +43,17 @@ npm install
 ### 2️⃣ Setup Environment
 Create a `.env` file:
 
+####  With out docker
 ```env
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/task_app
+JWT_SECRET=your_secret_key
+JWT_EXPIRE=7d
+```
+####  With docker
+```env
+PORT=5000
+MONGO_URI=mongodb://mongo:27017/task_app
 JWT_SECRET=your_secret_key
 JWT_EXPIRE=7d
 ```
@@ -56,6 +65,31 @@ npm run dev
 > API runs at: **http://localhost:5000**
 
 ---
+
+
+### 🐳 Run with Docker
+
+This project supports **Dockerized deployment** for both the backend API and MongoDB.
+
+---
+
+### Step 1: Build and Start Containers
+```bash
+docker compose up --build
+```
+
+### Step 2: Check Running Containers
+```bash
+docker ps
+```
+
+ **Note:** Once the containers are running successfully, your backend will be available at:
+👉 http://localhost:5000.
+
+### Step 3: Stop Containers
+```bash
+docker compose down
+```
 
 ## 🔐 Authentication Flow
 
@@ -121,17 +155,6 @@ Authorization: Bearer <your_jwt_token_here>
   "status": "pending",
   "deadline": "2025-11-05"
 }
-```
-
----
-
-## 🧮 Pagination & Sorting (Frontend Usage)
-
-You can add query params to fetch sorted or paginated tasks.
-
-Example:
-```
-GET /api/tasks?page=1&limit=5&sortBy=createdAt&order=desc
 ```
 
 ---

@@ -52,26 +52,9 @@ export class TaskService {
     if (!isValidObjectId(userId)) {
       throw new ErrorHandler("Invalid User ID format", 400);
     }
-     const page = parseInt(query.page, 10) || 1;
-     const limit = parseInt(query.limit, 10) || 5;
-     const sortBy = query.sortBy || "createdAt";
-     const order = query.order === "asc" ? 1 : -1;
-     const skip = (page - 1) * limit;
-
-    const tasks = await TaskModel.find({ user: userId })
-    .sort({ [sortBy]: order })
-    .skip(skip)
-    .limit(limit);
-    const totalTasks = await TaskModel.countDocuments({ user: userId });
-
+     const tasks = await TaskModel.find({ user: userId })
     return {
-      tasks,
-      pagination: {
-        total: totalTasks,
-        page,
-        limit,
-        totalPages: Math.ceil(totalTasks / limit),
-      },
+      tasks
     };
    
   }

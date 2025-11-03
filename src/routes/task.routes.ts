@@ -6,8 +6,8 @@ import { asyncHandler } from "../middleware/asyncHandler";
 const router = express.Router();
 const taskController = new TaskController();
 
-router.post("/tasks", isAuthenticated, asyncHandler((req: Request, res: Response) => taskController.createTask(req, res)));
-router.get("/tasks", isAuthenticated, asyncHandler((req: Request, res: Response) => taskController.getUserTasks(req, res)));
+router.post("/", isAuthenticated, asyncHandler((req: Request, res: Response) => taskController.createTask(req, res)));
+router.get("/", isAuthenticated, asyncHandler((req: Request, res: Response) => taskController.getUserTasks(req, res)));
 router.put("/:id", isAuthenticated, asyncHandler((req: Request, res: Response) => taskController.updateTask(req, res)));
 router.delete("/:id", isAuthenticated, asyncHandler((req: Request, res: Response) => taskController.deleteTask(req, res)));
 
