@@ -103,9 +103,9 @@ Authorization: Bearer <your_jwt_token_here>
 
 ---
 
-## 📬 API Endpoints
+## API Endpoints
 
-### 🧑‍💻 Auth Routes
+###  Auth Routes
 
 | Method | Endpoint | Description |
 |--------|-----------|--------------|
@@ -131,9 +131,9 @@ Authorization: Bearer <your_jwt_token_here>
 
 ---
 
-### ✅ Task Routes (Protected)
+###  Task Routes (Protected)
 
-> ⚠️ **Note:** Add your JWT token as a **Bearer token** in the header before testing these APIs.
+**Note:** Add your JWT token as a **Bearer token** in the header before testing these APIs.
 
 | Method | Endpoint | Description |
 |--------|-----------|-------------|
@@ -159,7 +159,7 @@ Authorization: Bearer <your_jwt_token_here>
 
 ---
 
-## 🧾 Sample Task Payloads
+##  Sample Task Payloads
 
 Here are some example tasks you can create using Postman:
 
@@ -168,19 +168,19 @@ Here are some example tasks you can create using Postman:
   {
     "title": "Setup Pagination",
     "description": "Implement pagination for user tasks",
-    "status": "in-progress",
+    "status": "In Progress",
     "deadline": "2025-11-04"
   },
   {
     "title": "Add Error Handling",
     "description": "Create centralized error handler middleware",
-    "status": "pending",
+    "status": "Pending",
     "deadline": "2025-11-05"
   },
   {
     "title": "Frontend Integration",
     "description": "Connect API with React frontend",
-    "status": "pending",
+    "status": "Pending",
     "deadline": "2025-11-06"
   }
 ]
@@ -188,7 +188,7 @@ Here are some example tasks you can create using Postman:
 
 ---
 
-## 🧰 Scripts
+## Scripts
 ```json
 "scripts": {
   "dev": "nodemon --exec ts-node src/server.ts",
