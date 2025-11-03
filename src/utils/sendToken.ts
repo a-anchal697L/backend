@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
 import { IUser } from "../types/user"
-import { Request, Response } from "express"
+import { Response } from "express"
 
 export const sendToken=(user:IUser, res:Response,statusCode:number)=>{
     const payload = {id:user._id,email:user.email};
