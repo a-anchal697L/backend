@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/server.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/server.ts"
+    }
+  ],
+  "env": {
+    "PORT": "5000",
+    "MONGO_URI": "your_mongodb_atlas_connection_string",
+    "JWT_SECRET": "your_secret_key",
+    "JWT_EXPIRE": "7d"
+  }
+}
